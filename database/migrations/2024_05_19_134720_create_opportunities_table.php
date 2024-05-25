@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('opportunities', function (Blueprint $table) {
             $table->id();
+            $table->string('opportunity_status');
+            $table->string('recruiter_name');
+            $table->string('recruiter_company');
+            
+            $table->string('job_title')->nullable();
+            $table->string('job_location_city')->nullable();
+            $table->string('job_location_type')->nullable();
+            $table->string('job_duration')->nullable();
+            $table->string('employment_type')->nullable();
+            $table->string('pay_rate')->nullable();
+
+            $table->text('job_description')->nullable();
+            $table->timestamp('email_received_at')->nullable();
+
             $table->timestamps();
         });
     }
