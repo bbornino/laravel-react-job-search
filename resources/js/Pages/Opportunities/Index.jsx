@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 
 export default function Index({ auth }) {
     const { data, setData, post, processing, reset, errors } = useForm({
@@ -16,14 +17,18 @@ export default function Index({ auth }) {
  
     const submit = (e) => {
         e.preventDefault();
-        post(route('opportunities.store'), { onSuccess: () => reset() });
+        console.log("yikes!")
     };
  
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Opportunities" />
-            <Container>
-                Hello World!
+            <Container className="mt-2">
+                <h1>All Opportunities</h1>
+                    <Button variant="primary" href={route('opportunities.create')}>Create Opportunity</Button>
+                Hello World! <br></br>
+                Add a table here of all opportunities later
+                
             </Container>
         </AuthenticatedLayout>
     );
