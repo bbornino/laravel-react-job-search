@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('opportunities', OpportunityController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
+    ->only(['index', 'create', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

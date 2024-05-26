@@ -22,9 +22,9 @@ class OpportunityController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        return Inertia::render('Opportunities/Create', [        ]);
     }
 
     /**
@@ -32,6 +32,13 @@ class OpportunityController extends Controller
      */
     public function store(Request $request)
     {
+        echo "Hi gurl!";
+        $opp = new Opportunity();
+        $opp2 = $opp->create();
+        // $request->opportunities->create();
+        // var_dump($request);
+        echo "Might be stopped early?";
+        exit;
         //
     }
 
