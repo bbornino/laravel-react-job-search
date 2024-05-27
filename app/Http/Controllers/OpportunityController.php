@@ -30,16 +30,26 @@ class OpportunityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
-        echo "Hi gurl!";
         $opp = new Opportunity();
-        $opp2 = $opp->create();
-        // $request->opportunities->create();
-        // var_dump($request);
-        echo "Might be stopped early?";
-        exit;
-        //
+        $validated = $request->validate([
+            'opportunity_status' => 'required|string|max:255',
+            'recruiter_name' => 'required|string|max:255',
+            'job_title' => 'required|string|max:255',
+            'email_received_at' => 'required|date',
+            'recruiter_company' => 'nullable|string|max:255',
+            'job_location_city' => 'nullable|string|max:255',
+            'job_location_type' => 'nullable|string|max:255',
+            'job_duration' => 'nullable|string|max:255',
+            'employment_type' => 'nullable|string|max:255',
+            'pay_rate' => 'nullable|string|max:255',
+            'job_description' => 'nullable|string|max:25555',
+        ]);
+        $opp->create($validated);
+        echo "I Finished the Validated!";
+
+        return Inertia::render('Opportunities/Edit', [        ]);
     }
 
     /**
