@@ -2,6 +2,7 @@ import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
+import DataTable from '@/Components/DataTableBase';
 import { useForm, Head } from '@inertiajs/react';
 
 import Button from 'react-bootstrap/Button';
@@ -11,7 +12,8 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 
-export default function Index({ auth }) {
+
+export default function Index({ auth, opportunities }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         recruiter_name: '',
         job_title: '',
@@ -24,6 +26,8 @@ export default function Index({ auth }) {
         employment_type: '',
         pay_rate: '',
         job_description: '',
+
+        // tableData3: this.props.opportunities
     });
  
     const submit = (e) => {
@@ -33,6 +37,32 @@ export default function Index({ auth }) {
 
     };
  
+    const columns = [
+        {
+            name: 'Recruiter Name',
+            selector: row => row.recruiter_name,
+        },
+        {
+            name: 'Job Title',
+            selector: row => row.job_title,
+        },
+    ];
+    
+    const tableData = [
+        {
+          id: 1,
+          title: 'Beetlejuice',
+          year: '1988',
+      },
+      {
+          id: 2,
+          title: 'Ghostbusters',
+          year: '1984',
+      },
+    ]
+
+    // const {opportunities} = usePage().props
+
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Opportunities" />
@@ -41,13 +71,11 @@ export default function Index({ auth }) {
                     A bunch of recruiters think its okay to spam me  just because I have my profile up.  Even when I remove myself from their list, they add me back on!
                 </Row>
                 
-
                 <Card>
                     <Card.Header>Create Opportunity</Card.Header>
-                    <Card.Text>
                     <Form onSubmit={submit}>
                         <Row className="m-2">
-                            <Col>
+                            <Col xl="3" lg="6">
                                 <Form.Group controlId="opportunityRecruiterName">
                                     <Form.Label>Recruiter Name</Form.Label>
                                     <Form.Control type="text" required 
@@ -65,7 +93,7 @@ export default function Index({ auth }) {
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col xl="3" lg="6">
+                            <Col xl="3" lg="6" className="m-2">
                                 <Form.Group className="mb-3" controlId="opportunityEmailRecieved">
                                     <Form.Label>Email Received Date</Form.Label>
                                     <Form.Control type="datetime-local" required 
@@ -74,19 +102,16 @@ export default function Index({ auth }) {
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col>
-                                <Button variant="primary" type="submit">Save Opportunity</Button>
+                            <Col className="d-flex align-items-center justify-content-center">
+                                <Button variant="primary" type="submit" className="d-flex align-items-center " >Save Opportunity</Button>
                             </Col>
                         </Row>
                     </Form>
-                    </Card.Text>
                 </Card>
 
-                
-
                 <h1 className="mt-3">All Opportunities</h1>
-                Add a table here of all opportunities later
                 
+                <DataTable columns={columns} data={opportunities} />
             </Container>
         </AuthenticatedLayout>
     );
