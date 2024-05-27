@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Opportunity;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-// use Illuminate\Http\Response;
+// use Illuminate\Http\Response;    // Using Inertia Response instead
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,7 +17,7 @@ class OpportunityController extends Controller
     public function index(): Response
     {
         // return response('Hello world');
-        return Inertia::render('Opportunities/Index', [        ]);
+        return Inertia::render('Opportunities/Index', [ 'opportunities' => Opportunity::all() ]);
     }
 
     /**
@@ -30,9 +31,9 @@ class OpportunityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): Response
+    public function store(Request $request): RedirectResponse
     {
-        $opp = new Opportunity();
+        $newOpportunity = new Opportunity();
         $validated = $request->validate([
             'opportunity_status' => 'required|string|max:255',
             'recruiter_name' => 'required|string|max:255',
@@ -46,10 +47,9 @@ class OpportunityController extends Controller
             'pay_rate' => 'nullable|string|max:255',
             'job_description' => 'nullable|string|max:25555',
         ]);
-        $opp->create($validated);
-        echo "I Finished the Validated!";
+        $newOpportunity->create($validated);
 
-        return Inertia::render('Opportunities/Edit', [        ]);
+        return redirect(route('opportunities.index'));
     }
 
     /**
@@ -65,7 +65,9 @@ class OpportunityController extends Controller
      */
     public function edit(Opportunity $opportunity)
     {
-        //
+        echo "Hello World";
+        echo "It was nice knowing you!";
+        exit;
     }
 
     /**

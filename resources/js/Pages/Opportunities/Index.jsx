@@ -38,7 +38,7 @@ export default function Index({ auth }) {
             <Head title="Opportunities" />
             <Container className="mt-2">
                 <Row className="m-4">
-                    A bunch of recruiters think its okay to spam me  just because I have my profile up.  Even when I remove myself from the list...
+                    A bunch of recruiters think its okay to spam me  just because I have my profile up.  Even when I remove myself from their list, they add me back on!
                 </Row>
                 
 
