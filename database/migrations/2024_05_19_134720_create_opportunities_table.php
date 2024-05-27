@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('opportunity_status');
             $table->string('recruiter_name');
-            $table->string('recruiter_company');
+            $table->string('recruiter_company')->nullable();
             
-            $table->string('job_title')->nullable();
+            $table->string('job_title');
             $table->string('job_location_city')->nullable();
             $table->string('job_location_type')->nullable();
             $table->string('job_duration')->nullable();
