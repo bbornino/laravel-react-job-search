@@ -4,13 +4,26 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+import Form from 'react-bootstrap/Form';
+import Switch from 'react-bootstrap/Switch';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
+    const [darkMode, setDarkMode] = useState(true);
+    const htmlElement = document.querySelector('html');
+    const initColorMode = htmlElement.getAttribute('data-bs-theme') == 'dark' ? 'dark' : 'light';
+    // setDarkMode(htmlElement.getAttribute('data-bs-theme') == 'dark' ? 'dark' : );)
+
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+        const htmlElement = document.querySelector('html');
+        htmlElement.setAttribute('data-bs-theme', darkMode ? 'light' :'dark');
+    };
+
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+            <nav className="--bs-body-bg border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -29,6 +42,10 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                             </div>
                         </div>
+
+                        <Switch id="btn_str" name="some" valign="middle" className="d-flex items-center align-items-center"
+                            onChange={toggleDarkMode} defaultValue={darkMode}
+                            label={darkMode ? ' Switch to Light Mode' : ' Switch to Dark Mode'}  />
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
                             <div className="ms-3 relative">
