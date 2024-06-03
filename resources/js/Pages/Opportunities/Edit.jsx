@@ -18,7 +18,7 @@ export default function Edit({ auth, opportunity }) {
         recruiter_company: opportunity.recruiter_company == null ? '': opportunity.recruiter_company,
         job_title: opportunity.job_title,
         email_received_at: opportunity.email_received_at,
-        employment_type: opportunity.employment_type,
+        employment_type: opportunity.employment_type == null ? 'Contract': opportunity.employment_type,
         job_duration: opportunity.job_duration == null ? '': opportunity.job_duration,
         pay_rate: opportunity.pay_rate == null ? '': opportunity.pay_rate,
         job_location_type: opportunity.job_location_type == null ? 'On-Site': opportunity.job_location_type,
