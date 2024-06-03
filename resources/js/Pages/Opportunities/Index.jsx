@@ -1,7 +1,5 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
 import DataTable from '@/Components/DataTableBase';
 import { useForm, Head } from '@inertiajs/react';
 
@@ -26,8 +24,6 @@ export default function Index({ auth, opportunities }) {
         employment_type: '',
         pay_rate: '',
         job_description: '',
-
-        // tableData3: this.props.opportunities
     });
  
     const submit = (e) => {
@@ -39,30 +35,27 @@ export default function Index({ auth, opportunities }) {
  
     const columns = [
         {
+            name: 'Job Title',
+            selector: row => row.job_title,
+        },
+        {
             name: 'Recruiter Name',
             selector: row => row.recruiter_name,
         },
         {
-            name: 'Job Title',
-            selector: row => row.job_title,
+            name: 'Status',
+            selector: row => row.opportunity_status,
+        },
+        {
+            name: 'Received On',
+            selector: row => row.email_received_at,
         },
     ];
+
+    const onRowClicked = (row, event) => { 
+        window.location = route('opportunities.edit', row)
+    };
     
-    const tableData = [
-        {
-          id: 1,
-          title: 'Beetlejuice',
-          year: '1988',
-      },
-      {
-          id: 2,
-          title: 'Ghostbusters',
-          year: '1984',
-      },
-    ]
-
-    // const {opportunities} = usePage().props
-
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Opportunities" />
@@ -111,7 +104,7 @@ export default function Index({ auth, opportunities }) {
 
                 <h1 className="mt-3">All Opportunities</h1>
                 
-                <DataTable columns={columns} data={opportunities} />
+                <DataTable columns={columns} data={opportunities} onRowClicked={onRowClicked} />
             </Container>
         </AuthenticatedLayout>
     );

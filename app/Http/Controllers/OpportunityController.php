@@ -16,8 +16,7 @@ class OpportunityController extends Controller
      */
     public function index(): Response
     {
-        // return response('Hello world');
-        return Inertia::render('Opportunities/Index', [ 'opportunities' => Opportunity::all() ]);
+        return Inertia::render('Opportunities/Index', [ 'opportunities' => Opportunity::all()       ]);
     }
 
     /**
@@ -65,9 +64,7 @@ class OpportunityController extends Controller
      */
     public function edit(Opportunity $opportunity)
     {
-        echo "Hello World";
-        echo "It was nice knowing you!";
-        exit;
+        return Inertia::render('Opportunities/Edit', [ 'opportunity' =>    $opportunity    ]);
     }
 
     /**
@@ -75,7 +72,22 @@ class OpportunityController extends Controller
      */
     public function update(Request $request, Opportunity $opportunity)
     {
-        //
+        $validated = $request->validate([
+            'opportunity_status' => 'required|string|max:255',
+            'recruiter_name' => 'required|string|max:255',
+            'job_title' => 'required|string|max:255',
+            'email_received_at' => 'required|date',
+            'recruiter_company' => 'nullable|string|max:255',
+            'job_location_city' => 'nullable|string|max:255',
+            'job_location_type' => 'nullable|string|max:255',
+            'job_duration' => 'nullable|string|max:255',
+            'employment_type' => 'nullable|string|max:255',
+            'pay_rate' => 'nullable|string|max:255',
+            'job_description' => 'nullable|string|max:25555',
+        ]);
+        $opportunity->update($validated);
+
+        return redirect(route('opportunities.index'));
     }
 
     /**
