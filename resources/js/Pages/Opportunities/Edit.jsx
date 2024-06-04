@@ -1,7 +1,6 @@
 import React, {Component, useState} from 'react';
+import axios from "axios"; // Don't forget to import axios!
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, Head } from '@inertiajs/react';
 
 import Button from 'react-bootstrap/Button';
@@ -10,6 +9,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 
 export default function Edit({ auth, opportunity }) {
     const { data, setData, patch, processing, reset, errors } = useForm({
@@ -29,8 +30,19 @@ export default function Edit({ auth, opportunity }) {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log("yippe!")
         patch(route('opportunities.update', opportunity.id));
+    };
+
+    const onDelete = (e) => {
+        e.preventDefault()
+
+        var result = axios.delete(route('opportunities.destroy', opportunity.id))
+        .then(response => {
+            if (response.status == 200) {
+                window.location.href = response.data
+            }
+        })
+
     };
 
     return (
@@ -38,13 +50,15 @@ export default function Edit({ auth, opportunity }) {
             <Head title="Edit Opportunity" />
             <Container className="mt-2">
                 <Form onSubmit={submit} >
-
-                    <Row>
-                        <Col>
-                            <h4>Edit Emailed Opportunity</h4>
-                        </Col>
-                        <Col className="d-flex align-items-center justify-content-center">
-                            <Button variant="primary" type="submit" className="d-flex align-items-center " >Save Opportunity</Button>
+                    <Row className="mt-3">
+                        <Col sm="12">
+                            <h3>Edit Emailed Opportunity</h3>
+                            <Button variant="primary" type="submit" className="float-right">
+                                <FontAwesomeIcon icon={faFloppyDisk} /> Save Opportunity</Button>
+                            
+                            <Button onClick={onDelete} 
+                                    variant="danger" className="mr-5 float-right" >
+                                <FontAwesomeIcon icon={faTrash} /> Delete</Button>
                         </Col>
                     </Row>
                     <Row >

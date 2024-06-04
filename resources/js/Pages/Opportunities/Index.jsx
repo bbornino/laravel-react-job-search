@@ -28,7 +28,6 @@ export default function Index({ auth, opportunities }) {
  
     const submit = (e) => {
         e.preventDefault();
-        console.log("yippe!")
         post(route('opportunities.store'));
 
     };

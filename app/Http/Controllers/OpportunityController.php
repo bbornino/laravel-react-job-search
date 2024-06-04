@@ -95,6 +95,9 @@ class OpportunityController extends Controller
      */
     public function destroy(Opportunity $opportunity)
     {
-        //
+        $opportunity->delete();
+
+        return route('opportunities.index');
+
     }
 }
